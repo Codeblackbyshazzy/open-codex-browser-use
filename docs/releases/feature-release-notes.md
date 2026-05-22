@@ -4,6 +4,7 @@
 
 | 日期 | 功能域 | 用户价值 | 变更摘要 |
 | --- | --- | --- | --- |
+| 2026-05-22 | Skill Tab Reuse | Agent 处理连续相关任务时会优先复用已交付或 handoff 的匹配标签页，不再把同一个页面反复堆进完成分组。 | 发布 `0.1.40` patch 版本，强化 `skills/open-browser-use` 的 Core Workflow、Operating Rules 和 Tab Lifecycle：新开 tab 前先检查 `user-tabs`，从 `✅ Open Browser Use` 或旧 handoff group 中 claim 明确匹配的 tab，并在有歧义时避免误 claim。 |
 | 2026-05-17 | macOS Native Host Socket | macOS 用户在较长 `TMPDIR` 环境下也能稳定连接 native host，不再因为 Unix socket 路径过长导致 popup 只显示 `Native host has exited`。 | 发布 `0.1.39` patch 版本，Unix 默认 socket 根目录恢复为固定短路径 `/tmp/open-browser-use`，Windows 继续使用系统临时目录；bind 失败错误补充 socket 路径长度，并新增默认路径、实际 bind、长路径诊断的回归测试。 |
 | 2026-05-16 | Chrome Extension Popup | 用户打开 popup 时能直接看到当前 extension 版本，并根据自己的系统看到合适的 CLI 安装命令；macOS 保留 npm 和 Homebrew 两条路径，Windows/Linux 只显示 npm。 | 发布 `0.1.38` patch 版本，popup 新增版本 pill 和 OS-aware CLI install 面板，补充 OBU render harness 验证，并同步 README skill 安装命令去掉不再需要的 `--copy`。 |
 | 2026-05-16 | Windows CLI Install | Windows 用户可以通过 `npm i -g open-browser-use && open-browser-use setup` 完成 native host 注册和 Chrome Web Store 扩展连接，也可以从 GitHub Release 下载 Windows zip 直接运行 CLI。 | 发布 `0.1.37` patch 版本，补齐 Windows registry setup、stable exe copy、`--parent-window` native host 启动识别、Windows socket/profile 路径、release Windows zip 制品，并用真实 Windows Chrome 跑通 `info`、`user-tabs`、`open-tab`、`page-info` 和 `finalize-tabs`。 |
